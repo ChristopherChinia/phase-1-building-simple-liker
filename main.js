@@ -3,10 +3,35 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const modal = document.getElementById('modal');
+
+const articleHearts = document.querySelectorAll(".like-glyph");
+// console.log(articleHearts);
 
 
+    for (const glyph of articleHearts) {
+      glyph.addEventListener("click", ()=>{
+        mimicServerCall("http://mimicServer.example.com")
+        .then(()=>{
+        if (glyph.innerHTML === EMPTY_HEART){
+           glyph.innerHTML = FULL_HEART
+           glyph.className = "activated-heart"
+        }else {
+          glyph.innerHTML = EMPTY_HEART
+          glyph.className = "activated-heart"
+        }   
+        })
+        .catch((params) => {
+          modal.className = " "
+          modal.innerHTML = params
+          setTimeout(() => {
+            return modal.className = "hidden"
+          }, 2000)
 
-
+        })
+      });
+    }
+    
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
 //------------------------------------------------------------------------------
